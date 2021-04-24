@@ -1,10 +1,6 @@
 class Importer(object):
-    def __init__(self, file):
-        self.file = file.readlines()
-        self.vertices = []
-        self.normals = []
-        self.faces = []
-        self.textures = []
+    def __init__(self):
+        self.file = None
 
     def _get_section(self, section : str, format_f=None):
         format_f = (lambda x: x) if format_f is None else format_f
@@ -19,30 +15,41 @@ class Importer(object):
                 break
         return temp
 
-    def do_import(self):
-        def faces_f(line):
-            """f 1/1/1 5/2/1 7/3/1 3/4/1
-                vertex_index/texture_index/normal_index
-            """
-            line = line.split()[1:]
-            temp = []
-            for i in line:
-                # os indices no arquivo obj começam a partir do 1
-                temp.append([int(x)-1 for x in i.split('/')])
-            return temp
+    @staticmethod
+    def faces_func(line):
+        """f 1/1/1 5/2/1 7/3/1 3/4/1
+            vertex_index/texture_index/normal_index
+        """
+        line = line.split()[1:]
+        temp = []
+        for i in line:
+            # os indices no arquivo obj começam a partir do 1
+            temp.append([int(x)-1 for x in i.split('/')])
+        return temp
 
-        vertices_f = lambda line: [float(x) for x in line.split()[1:]]
-        normals_f = lambda line: [float(x) for x in line.split()[1:]]
-        textures_f = lambda line: [float(x) for x in line.split()[1:]]
-        self.vertices = self._get_section('v ', vertices_f)
-        self.normals = self._get_section('vn', normals_f)
-        self.faces = self._get_section('f', faces_f)
-        self.textures = self._get_section('vt', textures_f)
-        return self.vertices, self.normals, self.faces, self.textures
+    @staticmethod
+    def vertices_func(line):
+        return [float(x) for x in line.split()[1:]]
+
+    @staticmethod
+    def normals_func(line):
+        return [float(x) for x in line.split()[1:]]
+
+    @staticmethod
+    def textures_func(line):
+        return [float(x) for x in line.split()[1:]]
+
+    def do_import(self, file):
+        self.file = file.readlines()
+        vertices = self._get_section('v ', Importer.vertices_func)
+        normals = self._get_section('vn', Importer.normals_func)
+        faces = self._get_section('f', Importer.faces_func)
+        textures = self._get_section('vt', Importer.textures_func)
+        return vertices, normals, faces, textures
 
 
 if __name__ == '__main__':
     with open('teste1.obj') as file:
-        imp = Importer(file)
-        print(imp.do_import()[3])
+        imp = Importer()
+        print(imp.do_import(file)[3])
 

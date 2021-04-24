@@ -77,7 +77,7 @@ def door():
     glTranslate(-6.6, 0, 0)
 
     glColor3fv(colors.BROWN3)
-    parser.parse('mesh/porta.obj')
+    parser.parse('porta')
 
     glPopMatrix()
 
@@ -106,7 +106,7 @@ def window():
     glTranslate(0, 0, 5)
 
     glColor3fv(colors.GREEN1)
-    parser.parse('mesh/janela.obj')
+    parser.parse('janela')
 
     glPopMatrix()
     glPushMatrix()
@@ -116,7 +116,7 @@ def window():
     glTranslate(0, 0, -5)
 
     glColor3fv(colors.GREEN3)
-    parser.parse('mesh/janela.obj')
+    parser.parse('janela')
 
     glPopMatrix()
 
@@ -126,36 +126,36 @@ def room():
     glMaterialfv(GL_FRONT, GL_SPECULAR, [.7, .7, .7, 1.])
     glMaterialf(GL_FRONT, GL_SHININESS, 70)
     glColor3fv(colors.RED3)
-    parser.parse('mesh/quarto.obj')
+    parser.parse('quarto')
 
 
 def floorCeiling():
     glColor3fv(colors.BLUE3)
-    parser.parse('mesh/chao.obj')
+    parser.parse('chao')
 #    glColor3fv(colors.ORANGE1)
-#    parser.parse('mesh/teto.obj')
+#    parser.parse/teto')
 
 
 def bed():
     glColor3fv(colors.BLUE2)
-    parser.parse('mesh/cama/travesseiro.obj')
+    parser.parse('cama')
 
     glColor3fv(colors.BLUE1)
-    parser.parse('mesh/cama/colchao.obj')
+    parser.parse('colchao')
 
     glColor3fv(colors.BROWN2)
-    parser.parse('mesh/cama/cama.obj')
+    parser.parse('cama')
 
 
 def table():
 #    glColor3fv(colors.BROWN1)
-#    parser.parse('mesh/mesa/mesa.obj')
+#    parser.parse('mesa')
     glColor3fv(colors.ORANGE3)
-    parser.parse('mesh/mesa/lixeira.obj')
+    parser.parse('lixeira')
     glColor3fv(colors.BROWN3)
-    parser.parse('mesh/mesa/cadeira.obj')
+    parser.parse('cadeira')
     glColor3fv(colors.GREEN3)
-    parser.parse('mesh/mesa/luminaria.obj')
+    parser.parse('luminaria')
 
 
 def all():
@@ -167,4 +167,19 @@ def all():
     table()
 
 
+
 glEnable(GL_TEXTURE_2D)
+parser.load('mesh/porta.obj')
+parser.load('mesh/janela.obj')
+parser.load('mesh/quarto.obj')
+parser.load('mesh/chao.obj')
+parser.load('mesh/teto.obj')
+
+parser.load('mesh/cama/travesseiro.obj')
+parser.load('mesh/cama/colchao.obj')
+parser.load('mesh/cama/cama.obj')
+
+parser.load('mesh/mesa/mesa.obj')
+parser.load('mesh/mesa/lixeira.obj')
+parser.load('mesh/mesa/cadeira.obj')
+parser.load('mesh/mesa/luminaria.obj')
