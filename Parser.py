@@ -14,6 +14,7 @@ class Parser(object):
         return data, getFileName(file_path)
 
     def _add_obj(self, data, file_name):
+        """Regista o objeto no parser"""
         vertices, normals, faces, textures = data
         self.objects[file_name] = {
             'vertices': vertices,
@@ -32,14 +33,16 @@ class Parser(object):
             for v in face:
                 vi, ti, ni = v
                 glNormal3fv(obj['normals'][ni])
-                if use_texture: glTexCoord2fv(obj['textures'][ti])
+                glTexCoord2fv(obj['textures'][ti])
                 glVertex3fv(obj['vertices'][vi])
         glEnd()
 
     def load(self, file_path):
+        """Carrega o arquivo"""
         data, file_name = self._import(file_path)
         self._add_obj(data, file_name)
 
     def parse(self, name, texture=False):
+        """Faz o desenho do objeto"""
         self._parse(name, texture)
 

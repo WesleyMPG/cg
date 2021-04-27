@@ -21,3 +21,4 @@ GREEN1 = rgb('#2E8B57')
 GREEN2 = rgb('#32CD32')
 GREEN3 = rgb('#228B22')
 
+WHITE = rgb('#FFFFFF')
