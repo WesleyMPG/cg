@@ -8,8 +8,8 @@ W, H = 1280, 720
 FOV_Y = 75
 
 ortho = False
-cam_x, cam_y, cam_z = 60, 37, 94
-center_x, center_y, center_z = 5, 0, 0
+cam_x, cam_y, cam_z = 1, 7, 15
+center_x, center_y, center_z = 6, 5, 0
 def setup_cam():
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
@@ -21,15 +21,16 @@ def setup_cam():
 
 
 def setup_lights():
-    ambient_light = [.2, .2, .2, 1]
+    ambient_light = [.15, .15, .15, 1]
     glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT1)
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, [1, 1, 1, 1])
     glEnable(GL_LIGHT0)
     glEnable(GL_COLOR_MATERIAL)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient_light)
     glShadeModel(GL_SMOOTH)
-    glLightfv(GL_LIGHT0, GL_AMBIENT, [.1, .1, .1, 1])
+#    glLightfv(GL_LIGHT0, GL_AMBIENT, [.1, .1, .1, 1])
     glLightfv(GL_LIGHT0, GL_DIFFUSE, [1, 1, 1, 1])
-    glLightfv(GL_LIGHT0, GL_POSITION, [20, 50, 10])
 
 
 
@@ -86,6 +87,12 @@ def keyboard(key, x, y):
         draw.toggleWindow = True
 
 
+def spot():
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, [0, -1, -1])
+    glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 10)
+    glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 60)
+
+
 def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glMatrixMode(GL_MODELVIEW)
@@ -93,6 +100,9 @@ def display():
 
     gluLookAt(cam_x, cam_y, cam_z, center_x, center_y, center_z,
               0, 1, 0)
+    glLightfv(GL_LIGHT0, GL_POSITION, [20, 50, 10, 1])
+    glLightfv(GL_LIGHT1, GL_POSITION, [42, -0.6, 2, 1])
+    spot()
     draw.axes()
 #    drawGrid()
 
@@ -111,14 +121,16 @@ def init():
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(W, H)
     glutCreateWindow('shape')
+    glEnable(GL_TEXTURE_2D)
+    glEnable(GL_DEPTH_TEST)
 
     glutDisplayFunc(display)
     glutIdleFunc(glutPostRedisplay)
     glutKeyboardFunc(keyboard)
 
     setup_cam()
-    glEnable(GL_DEPTH_TEST)
     setup_lights()
+    draw.load_all_textures()
 
     glutMainLoop()
 

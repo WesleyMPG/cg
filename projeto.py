@@ -99,47 +99,12 @@ def drawGrid():
     glEnd()
 
 
-def drawFrontWall():
-    glPushMatrix()  # leftPart
-
-    glColor4f(0, 1, 0, 1)
-    glTranslate(-4.25, 0, 2)
-    glScale(6.5, 4, .5)
-    glutSolidCube(1)
-
-    glPopMatrix()  # fleftPart
-    glPushMatrix() # topPart
-
-    glTranslate(0, 1.625, 2)
-    glScale(2.01, .75, .5)
-    glutSolidCube(1)
-
-    glPopMatrix()  # ftopPart
-    glPushMatrix()  # rightPart
-
-    glTranslate(4.25, 0, 2)
-    glScale(6.5, 4, .5)
-    glutSolidCube(1)
-
-    glPopMatrix()  # frightPart
-
-
-def drawWalls():
-    glPushMatrix()
-    glColor4f(1, 0, 0, 1)
-    glScale(15, 4, .5)
-    glutSolidCube(1)
-    glPopMatrix()
-
-    drawFrontWall()
-
-
-def load_texture(path, _id):
+def load_texture(path, qtd):
     texture = plImage.open(path)
-    data = texture.tobytes('raw', 'RGB', 0, -1)
+    data = texture.tobytes('raw', 'RGB', 0)
     w, h = texture.size[0], texture.size[1]
 
-    textId = glGenTextures(_id)
+    textId = glGenTextures(qtd)
     formato = GL_RGB
     glBindTexture(GL_TEXTURE_2D, textId)
     glTexImage2D(GL_TEXTURE_2D, 0, formato,
@@ -154,15 +119,16 @@ def load_texture(path, _id):
 
 def drawTex():
     global tg, tg2
-    glPushMatrix()
     glBindTexture(GL_TEXTURE_2D, tg)
-    parser.parse('teste1.obj', texture=True)
-    glPopMatrix()
+    parser.parse('teste1', texture=True)
 
     glPushMatrix()
-    glBindTexture(GL_TEXTURE_2D, tg)
-    glTranslate(5, 0, 0)
-    parser.parse('teste1.obj', texture=True)
+
+    glColor3fv([1, 1, 1])
+    glTranslate(2, 0, 0)
+    glBindTexture(GL_TEXTURE_2D, tg2)
+    parser.parse('teste1', texture=True)
+
     glPopMatrix()
 
 
@@ -194,14 +160,14 @@ def main():
     glutDisplayFunc(display)
     glutIdleFunc(glutPostRedisplay)
     glutKeyboardFunc(keyboard)
-    glActiveTexture(GL_TEXTURE22)
     setup_cam()
     setup_lights()
     tg = load_texture('tx1.png', 1)
-    tg2 = load_texture('texture.jpg', 1)
+    tg2 = load_texture('madeira2.jpg', 1)
 
     glutMainLoop()
 
 
+parser.load('teste1.obj')
 main()
 

@@ -1,7 +1,7 @@
 # Blender v2.92.0 OBJ File: 'quarto.blend'
 # www.blender.org
 mtllib lixeira.mtl
-o Circle
+o lixeira_Circle
 v 42.064262 -11.618076 -22.823835
 v 40.425537 -11.618076 -22.145052
 v 39.746754 -11.618076 -20.506327
