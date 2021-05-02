@@ -103,7 +103,7 @@ def display():
     glLightfv(GL_LIGHT0, GL_POSITION, [20, 50, 10, 1])
     glLightfv(GL_LIGHT1, GL_POSITION, [42, -0.6, 2, 1])
     spot()
-    draw.axes()
+#    draw.axes()
 #    drawGrid()
 
     if draw.toggleDoor:

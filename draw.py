@@ -265,7 +265,6 @@ def load_all_textures():
     }
 
 
-glEnable(GL_TEXTURE_2D)
 parser.load('mesh/porta.obj')
 parser.load('mesh/janela.obj')
 parser.load('mesh/paredes/paredes.obj')
