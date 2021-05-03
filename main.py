@@ -120,7 +120,7 @@ def init():
     glutInit()
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(W, H)
-    glutCreateWindow('shape')
+    glutCreateWindow('projeto final')
     glEnable(GL_TEXTURE_2D)
     glEnable(GL_DEPTH_TEST)
 

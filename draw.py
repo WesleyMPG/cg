@@ -58,20 +58,16 @@ def grid():
     glEnd()
 
 
-def load_texture(path, s=False):
+def load_texture(path):
     texture = plImage.open(path)
     data = texture.tobytes('raw', 'RGB', 0, -1)
     w, h = texture.size[0], texture.size[1]
 
     textId = glGenTextures(1)
     glBindTexture(GL_TEXTURE_2D, textId)
-    if not s:
-        formato = GL_RGB
-        glTexImage2D(GL_TEXTURE_2D, 0, formato,
-                 w, h, 0, formato, GL_UNSIGNED_BYTE, data)
-    else:
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-                 w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data)
+    formato = GL_RGB
+    glTexImage2D(GL_TEXTURE_2D, 0, formato,
+             w, h, 0, formato, GL_UNSIGNED_BYTE, data)
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
